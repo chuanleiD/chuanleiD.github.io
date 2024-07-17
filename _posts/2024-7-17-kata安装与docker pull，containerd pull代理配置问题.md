@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "docker pull，containerd pull与代理配置的问题"
+title: "安装kata安全容器运行时，解决docker pull，containerd pull代理配置问题"
 date:   2024-7-17
 tags: [docker, proxy, containerd]
 comments: true
 author: daichuan
 ---
 
-本篇文档记录了使用代理解决docker pull失败问题的过程。
+本篇文档记录了安装kata安全容器运行时，以及使用代理解决docker pull失败问题的过程。
 
 <!-- more -->
 
@@ -89,6 +89,8 @@ If you are behind an HTTP or HTTPS proxy server, for example in corporate settin
 
 ### 脚本如下：
 
+使用方法：将`docker pull ***`，改为 `containerd_pull ***`
+
 ```bash
 #!/bin/bash
 
@@ -150,5 +152,57 @@ rm $TAR_FILE
 echo "验证镜像是否已导入到 containerd:"
 sudo ctr image ls | grep $ACTUAL_IMAGE_ID
 echo "操作完成"
+```
+
+## 安装kata安全容器运行时
+
+kata一般不与docker一起使用：kata2.x后，kata去掉了docker的cli，不能通过docker启动kata runtime容器，需要docker in Docker技术。[kata-containers/docs/how-to/how-to-run-docker-with-kata.md](https://github.com/kata-containers/kata-containers/blob/main/docs/how-to/how-to-run-docker-with-kata.md)
+
+#### 使用containerd+kata部署：
+
+[kata-containers/docs/install/container-manager/containerd/containerd-install.md](https://github.com/kata-containers/kata-containers/blob/main/docs/install/container-manager/containerd/containerd-install.md)
+
+[kata-containers/utils/README.md](https://github.com/kata-containers/kata-containers/blob/main/utils/README.md)
+
+1、请首先安装docker（一整套套件，省事了），并可以使用docker+runc运行容器。
+
+2、下载：kata-static-3.6.0-amd64.tar.xz，[https://github.com/kata-containers/kata-containers/releases/tag/3.6.0](https://github.com/kata-containers/kata-containers/releases/tag/3.6.0)
+
+```bash
+# 解压，可以在解压后转移至根目录
+tar -xvf kata-static-3.6.0-amd64.tar.xz
+```
+
+3、执行安装程序
+
+```bash
+sudo chmod 755 opt/kata/bin/kata-manager
+sudo opt/kata/bin/kata-manager -o -K kata-static-3.6.0-amd64.tar.xz
+```
+
+4、配置containerd
+
+```bash
+sudo vim /etc/containerd/config.toml
+# 然后写入：
+[plugins]
+  [plugins."io.containerd.grpc.v1.cri"]
+    [plugins."io.containerd.grpc.v1.cri".containerd]
+      default_runtime_name = "kata"
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.kata]
+          runtime_type = "io.containerd.kata.v2"
+# 重启服务
+sudo systemctl daemon-reload
+sudo systemctl restart containerd
+```
+
+5、测试
+
+```bash
+# 先执行 containerd_push 命令获取本地镜像
+image="docker.io/library/busybox:latest"
+sudo ctr image pull "$image"
+sudo ctr run --runtime "io.containerd.kata.v2" --rm -t "$image" test-kata uname -r
 ```
 
