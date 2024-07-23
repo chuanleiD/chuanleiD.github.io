@@ -11,9 +11,13 @@ author: daichuan
 
 <!-- more -->
 
-## 使用代理解决docker pull失败问题
+[TOC]
+
+## 一、使用代理解决docker pull失败问题
 
 参考：https://juejin.cn/post/7005407213615480839
+
+（很多国内的镜像服务都关了）
 
 ```bash
 sudo vim /etc/systemd/system/multi-user.target.wants/docker.service
@@ -35,7 +39,7 @@ sudo systemctl restart docker
 
 
 
-## 正确的官方文档
+## 二、正确的官方文档
 
 另外参考：https://www.cnblogs.com/abc1069/p/17496240.html
 
@@ -43,7 +47,7 @@ sudo systemctl restart docker
 
 关于 systemd 配置代理服务器的**官方文档**在这里，原文说：
 
-```mipsasm
+```
 The Docker daemon uses the HTTP_PROXY, HTTPS_PROXY, and NO_PROXY environmental variables in its start-up environment to configure HTTP or HTTPS proxy behavior. You cannot configure these environment variables using the daemon.json file.
 
 This example overrides the default docker.service file.
@@ -55,7 +59,7 @@ If you are behind an HTTP or HTTPS proxy server, for example in corporate settin
 
 
 
-## 使用解决containerd pull失败问题
+## 三、使用解决containerd pull失败问题
 
 <u>**失败**</u>，配置文件：`/etc/systemd/system/containerd.service.d/http-proxy.conf`
 
@@ -65,25 +69,25 @@ If you are behind an HTTP or HTTPS proxy server, for example in corporate settin
 
 1. 使用 Docker 拉取镜像：
 
-   ```
+   ```bash
    docker pull busybox:latest
    ```
 
 2. 将 Docker 镜像保存为 tar 文件：
 
-   ```
+   ```bash
    docker save busybox:latest -o busybox.tar
    ```
 
 3. 使用 ctr（containerd 的命令行工具）导入镜像：
 
-   ```
+   ```bash
    sudo ctr image import busybox.tar
    ```
 
 4. 验证镜像是否已导入到 containerd：
 
-   ```
+   ```bash
    sudo ctr image ls
    ```
 
@@ -154,11 +158,11 @@ sudo ctr image ls | grep $ACTUAL_IMAGE_ID
 echo "操作完成"
 ```
 
-## 安装kata安全容器运行时
+## 四、安装kata安全容器运行时
 
 kata一般不与docker一起使用：kata2.x后，kata去掉了docker的cli，不能通过docker启动kata runtime容器，需要docker in Docker技术。[kata-containers/docs/how-to/how-to-run-docker-with-kata.md](https://github.com/kata-containers/kata-containers/blob/main/docs/how-to/how-to-run-docker-with-kata.md)
 
-#### 使用containerd+kata部署：
+### 使用containerd+kata部署：
 
 [kata-containers/docs/install/container-manager/containerd/containerd-install.md](https://github.com/kata-containers/kata-containers/blob/main/docs/install/container-manager/containerd/containerd-install.md)
 
@@ -201,8 +205,11 @@ sudo systemctl restart containerd
 
 ```bash
 # 先执行 containerd_push 命令获取本地镜像
-image="docker.io/library/busybox:latest"
+image="docker.io/library/ubuntu:latest"
 sudo ctr image pull "$image"
-sudo ctr run --runtime "io.containerd.kata.v2" --rm -t "$image" test-kata uname -r
+sudo ctr run --runtime "io.containerd.kata.v2" --rm -t docker.io/library/ubuntu:latest ubuntu-kata /bin/bash
 ```
 
+## 五、Containerd入门
+
+[containerd容器运行时快速入门使用指南 - 尹正杰 - 博客园 (cnblogs.com)](https://www.cnblogs.com/yinzhengjie/p/18058010)
