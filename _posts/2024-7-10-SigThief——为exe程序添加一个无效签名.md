@@ -31,6 +31,8 @@ from optparse import OptionParser
 ```
 venv\Scripts\activate.bat
 python sigthief.py -i signedPE.exe -t targetPE.exe -o outputPE.exe
+
+python sigthief.py -i test.exe -t client.exe -o client2.exe
 ```
 
 ```
@@ -48,3 +50,15 @@ python sigthief.py -i signedPE.exe -t targetPE.exe -o outputPE.exe
   -c，--checksig 文件，检查是否签名；不验证签名有效性
   -T, --truncate 截断签名（即删除一个程序的签名）
 ```
+
+加一个：两种自启动方式兼容
+
+1、包活
+
+2、写文档：说明+技术
+
+3、自主选择盘符
+
+4、运行文件夹路径：部分C盘下的重要目录会报毒
+
+5、客户端配置文件写死在代码里
