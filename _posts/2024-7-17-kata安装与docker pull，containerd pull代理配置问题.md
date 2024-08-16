@@ -11,7 +11,15 @@ author: daichuan
 
 <!-- more -->
 
-[TOC]
+[一、使用代理解决docker pull失败问题](#一、使用代理解决docker pull失败问题)
+
+[二、正确的官方文档](#二、正确的官方文档)
+
+[三、使用解决containerd pull失败问题](#三、使用解决containerd pull失败问题)
+
+[四、安装kata安全容器运行时](#四、安装kata安全容器运行时)
+
+[五、Containerd入门](#五、Containerd入门)
 
 ## 一、使用代理解决docker pull失败问题
 
@@ -37,7 +45,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-
+-------
 
 ## 二、正确的官方文档
 
@@ -59,7 +67,7 @@ sudo systemctl restart docker
 
 这段话的意思是，docker daemon 使用 `HTTP_PROXY`, `HTTPS_PROXY`, 和 `NO_PROXY` 三个环境变量配置代理服务器，但是你需要在 systemd 的文件里配置环境变量，而不能配置在 `daemon.json` 里。
 
-
+-------
 
 ## 三、使用解决containerd pull失败问题
 
@@ -160,6 +168,8 @@ sudo ctr image ls | grep $ACTUAL_IMAGE_ID
 echo "操作完成"
 ```
 
+----------
+
 ## 四、安装kata安全容器运行时
 
 kata一般不与docker一起使用：kata2.x后，kata去掉了docker的cli，不能通过docker启动kata runtime容器，需要docker in Docker技术。[kata-containers/docs/how-to/how-to-run-docker-with-kata.md](https://github.com/kata-containers/kata-containers/blob/main/docs/how-to/how-to-run-docker-with-kata.md)
@@ -211,6 +221,8 @@ image="docker.io/library/ubuntu:latest"
 sudo ctr image pull "$image"
 sudo ctr run --runtime "io.containerd.kata.v2" --rm -t docker.io/library/ubuntu:latest ubuntu-kata /bin/bash
 ```
+
+-------
 
 ## 五、Containerd入门
 
