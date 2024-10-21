@@ -2,7 +2,7 @@
 layout: post
 title: "GPT-SoVITS部署与原理"
 date:   2024-8-04
-tags: [TTS, GPT-SoVITS]
+tags: [TTS, GPT-SoVITS, AI, 声音处理]
 comments: true
 author: daichuan
 ---

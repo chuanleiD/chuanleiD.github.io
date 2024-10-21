@@ -1,9 +1,11 @@
+---
 layout: post
 title: "SigThief——为exe程序添加一个无效签名"
 date:   2024-7-10
-tags: [程序伪装, 数字签名]
+tags: [程序伪装, 数字签名， sign， exe]
 comments: true
 author: daichuan
+---
 
 本篇文档讲述如何在windows环境下，为windows环境下的exe可执行文件打一个从其他程序上拿到的（无效）签名。
 

@@ -2,7 +2,7 @@
 layout: post
 title: "tensorflow学习"
 date:   2024-8-16
-tags: [web, Api, video]
+tags: [tensorflow, python, AI]
 comments: true
 author: chenliang
 ---

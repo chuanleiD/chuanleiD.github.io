@@ -2,7 +2,7 @@
 layout: post
 title: "windows下自启动问题，从PE系统下实现自启动"
 date:   2024-7-08
-tags: [windows系统, 自启动, PE系统]
+tags: [windows系统, 自启动autoRun, PE系统]
 comments: true
 author: daichuan
 ---

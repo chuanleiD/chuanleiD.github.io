@@ -2,7 +2,7 @@
 layout: post
 title: "安装kata安全容器运行时，解决docker pull，containerd pull代理配置问题"
 date:   2024-7-17
-tags: [docker, proxy, containerd]
+tags: [docker, proxy, containerd， 容器， 容器运行时]
 comments: true
 author: daichuan
 ---
