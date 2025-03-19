@@ -41,9 +41,7 @@ Wed Mar 19 21:21:25 2025
 +-----------------------------------------------------------------------------------------+
 ```
 
-安装wsl版本的CUDA Toolkit
-
-[CUDA Toolkit 11.6 Downloads | NVIDIA Developer](https://developer.nvidia.com/cuda-11-6-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
+安装wsl版本的CUDA Toolkit：[CUDA Toolkit 11.6 Downloads | NVIDIA Developer](https://developer.nvidia.com/cuda-11-6-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
