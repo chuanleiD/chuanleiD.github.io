@@ -9,7 +9,7 @@ author: chenliang
 
 本篇文档用于记录 `wsl` 运行 `pytorch-cuda` 时遇到的一个问题。
 
-参考：[【WSL】 WSL2下cuda+cuDNN+Anaconda+pytorch深度学习环境搭建_wsl安装cuda和cudnn-CSDN博客](https://blog.csdn.net/luxun59/article/details/129642581)
+参考：`【WSL】 WSL2下cuda+cuDNN+Anaconda+pytorch深度学习环境搭建_wsl安装cuda和cudnn-CSDN博客`：https://blog.csdn.net/luxun59/article/details/129642581
 
 <!-- more -->
 
@@ -41,7 +41,7 @@ Wed Mar 19 21:21:25 2025
 +-----------------------------------------------------------------------------------------+
 ```
 
-安装wsl版本的CUDA Toolkit：[CUDA Toolkit 11.6 Downloads | NVIDIA Developer](https://developer.nvidia.com/cuda-11-6-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
+安装wsl版本的CUDA Toolkit：`CUDA Toolkit 11.6 Downloads | NVIDIA Developer`：https://developer.nvidia.com/cuda-11-6-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
@@ -69,7 +69,7 @@ sudo apt install liburcu6
 
 安装pytorch
 
-[Previous PyTorch Versions | PyTorch](https://pytorch.org/get-started/previous-versions/)
+`Previous PyTorch Versions | PyTorch`：https://pytorch.org/get-started/previous-versions/
 
 ```bash
 # CUDA 12.4
@@ -78,7 +78,7 @@ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https
 
 安装cudnn
 
-[cuDNN 9.8.0 Downloads | NVIDIA Developer](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network)
+`cuDNN 9.8.0 Downloads | NVIDIA Developer`：https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
 
 测试结果：
 
